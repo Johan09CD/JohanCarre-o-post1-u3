@@ -1,0 +1,95 @@
+# JohanCarreño-post1-u3
+
+## Descripción del proyecto
+
+Este proyecto es una aplicación desarrollada con Spring Boot que simula el backend de una tienda virtual. Permite gestionar un catálogo de productos organizado jerárquicamente y procesar pagos a través de diferentes pasarelas.
+
+Se implementan los patrones de diseño estructurales:
+
+* **Adapter**: para integrar pasarelas de pago externas (PayPal y Stripe) con una interfaz común del sistema.
+* **Composite**: para representar el catálogo de productos con categorías y subcategorías de forma jerárquica.
+
+## Tecnologías utilizadas
+
+* Java 17
+* Spring Boot
+* Maven
+* JUnit 5
+
+## Cómo ejecutar el proyecto
+
+1. Clonar el repositorio:
+
+```bash
+git clone http://github.com/Johan09CD/JohanCarre-o-post1-u3
+cd JohanCarreño-post1-u3
+```
+
+2. Compilar el proyecto:
+
+```bash
+mvn clean package
+```
+
+3. Ejecutar la aplicación:
+
+```bash
+mvn spring-boot:run
+```
+
+## 🧪 Ejecutar pruebas
+
+Para ejecutar las pruebas unitarias:
+
+```bash
+mvn test
+```
+
+## Estructura del proyecto
+
+```
+src/
+ ├── main/java/com/universidad/tienda/
+ │    ├── adapter/     → Implementación del patrón Adapter
+ │    ├── composite/   → Implementación del patrón Composite
+ │    └── servicio/    → Lógica principal del sistema
+ │
+ └── test/java/com/universidad/tienda/
+      └── Pruebas con JUnit
+```
+
+## Patrón Adapter
+
+Se utiliza para adaptar las APIs de PayPal y Stripe a una interfaz común llamada `PasarelaPago`.
+
+Clases principales:
+
+* `PasarelaPago` (interfaz)
+* `PayPalAdapter`
+* `StripeAdapter`
+* `PayPalAPI` (API externa simulada)
+* `StripeAPI` (API externa simulada)
+
+Esto permite cambiar la pasarela sin modificar la lógica del sistema.
+
+## Patrón Composite
+
+Se utiliza para representar el catálogo de productos como una estructura jerárquica.
+
+Clases principales:
+
+* `ItemCatalogo` (interfaz)
+* `Producto` (hoja)
+* `Categoria` (composición)
+
+Permite tratar productos individuales y categorías de forma uniforme.
+
+## Funcionalidades
+
+* Construcción de un catálogo de productos jerárquico
+* Cálculo del precio total de categorías
+* Procesamiento de pagos con diferentes pasarelas
+* Pruebas unitarias para validar funcionamiento
+
+## Autor
+Johan Carreño
