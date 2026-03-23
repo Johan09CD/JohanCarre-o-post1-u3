@@ -12,6 +12,7 @@ public class PayPalAdapter implements PasarelaPago {
         return resultado.startsWith("PP_");
     }
 
+
     @Override
     public String obtenerNombre() {
         return "PayPal";

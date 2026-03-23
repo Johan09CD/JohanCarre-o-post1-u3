@@ -12,6 +12,7 @@ public class StripeAdapter implements PasarelaPago {
         return api.charge(token, centavos, moneda.toUpperCase());
     }
 
+
     @Override
     public String obtenerNombre() {
         return "Stripe";
