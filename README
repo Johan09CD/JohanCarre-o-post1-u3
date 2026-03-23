@@ -2,12 +2,11 @@
 
 ## Descripción del proyecto
 
-Este proyecto es una aplicación desarrollada con Spring Boot que simula el backend de una tienda virtual. Permite gestionar un catálogo de productos organizado jerárquicamente y procesar pagos a través de diferentes pasarelas.
+Este proyecto consiste en una aplicación desarrollada con Spring Boot que simula el backend de una tienda virtual. El sistema permite gestionar un catálogo de productos organizado de forma jerárquica y procesar pagos mediante diferentes pasarelas externas.
 
-Se implementan los patrones de diseño estructurales:
+Se implementan los patrones de diseño estructurales Adapter y Composite, aplicando inyección de dependencias y pruebas unitarias con JUnit 5.
 
-* **Adapter**: para integrar pasarelas de pago externas (PayPal y Stripe) con una interfaz común del sistema.
-* **Composite**: para representar el catálogo de productos con categorías y subcategorías de forma jerárquica.
+---
 
 ## Tecnologías utilizadas
 
@@ -16,28 +15,95 @@ Se implementan los patrones de diseño estructurales:
 * Maven
 * JUnit 5
 
-## Cómo ejecutar el proyecto
+---
+
+## Estructura del proyecto
+
+```plaintext
+├── src/
+│   ├── main/java/com/universidad/tienda/
+│   │   ├── adapter/
+│   │   │   ├── PasarelaPago.java
+│   │   │   ├── PayPalAdapter.java
+│   │   │   ├── PayPalAPI.java
+│   │   │   ├── StripeAdapter.java
+│   │   │   └── StripeAPI.java
+│   │   ├── composite/
+│   │   │   ├── ItemCatalogo.java
+│   │   │   ├── Producto.java
+│   │   │   └── Categoria.java
+│   │   ├── servicio/
+│   │   │   └── TiendaServicio.java
+│   │   └── TiendaApp.java
+│   └── test/java/com/universidad/tienda/
+│       └── TiendaServicioTest.java
+├── pom.xml
+└── README.md
+```
+
+---
+
+## Patrones de diseño implementados
+
+### Patrón Adapter
+
+El patrón Adapter se utiliza para integrar dos pasarelas de pago externas (PayPal y Stripe) que tienen interfaces diferentes.
+
+* **PasarelaPago**: interfaz común utilizada por el sistema (Target)
+* **PayPalAPI y StripeAPI**: clases externas con interfaces incompatibles (Adaptees)
+* **PayPalAdapter y StripeAdapter**: adaptadores que permiten usar las APIs externas a través de la interfaz común
+
+Esto permite cambiar la pasarela de pago sin modificar la lógica del sistema.
+
+---
+
+### Patrón Composite
+
+El patrón Composite se utiliza para representar el catálogo de productos como una estructura jerárquica.
+
+* **ItemCatalogo**: interfaz base (Component)
+* **Producto**: elemento individual (Leaf)
+* **Categoria**: contenedor de productos o subcategorías (Composite)
+
+Permite tratar de forma uniforme productos individuales y grupos de productos, además de calcular el precio total de manera recursiva.
+
+---
+
+## Ejecución del proyecto
 
 1. Clonar el repositorio:
 
 ```bash
-git clone http://github.com/Johan09CD/JohanCarre-o-post1-u3
+git clone https://github.com/Johan09CD/JohanCarre-o-post1-u3
+```
+
+2. Ingresar al proyecto:
+
+```bash
 cd JohanCarreño-post1-u3
 ```
 
-2. Compilar el proyecto:
+3. Compilar el proyecto:
 
 ```bash
 mvn clean package
 ```
 
-3. Ejecutar la aplicación:
+4. Ejecutar la aplicación:
 
 ```bash
 mvn spring-boot:run
 ```
 
-## 🧪 Ejecutar pruebas
+Al ejecutarse, la aplicación:
+
+* Muestra el catálogo de productos en consola
+* Calcula el precio total
+* Procesa un pago usando la pasarela configurada
+
+---
+
+## Pruebas
 
 Para ejecutar las pruebas unitarias:
 
@@ -45,51 +111,15 @@ Para ejecutar las pruebas unitarias:
 mvn test
 ```
 
-## Estructura del proyecto
+Las pruebas verifican:
 
-```
-src/
- ├── main/java/com/universidad/tienda/
- │    ├── adapter/     → Implementación del patrón Adapter
- │    ├── composite/   → Implementación del patrón Composite
- │    └── servicio/    → Lógica principal del sistema
- │
- └── test/java/com/universidad/tienda/
-      └── Pruebas con JUnit
-```
+* Funcionamiento del Adapter (PayPal y Stripe)
+* Validación de pagos
+* Cálculo correcto del precio total en el Composite
+* Funcionamiento de estructuras anidadas
 
-## Patrón Adapter
-
-Se utiliza para adaptar las APIs de PayPal y Stripe a una interfaz común llamada `PasarelaPago`.
-
-Clases principales:
-
-* `PasarelaPago` (interfaz)
-* `PayPalAdapter`
-* `StripeAdapter`
-* `PayPalAPI` (API externa simulada)
-* `StripeAPI` (API externa simulada)
-
-Esto permite cambiar la pasarela sin modificar la lógica del sistema.
-
-## Patrón Composite
-
-Se utiliza para representar el catálogo de productos como una estructura jerárquica.
-
-Clases principales:
-
-* `ItemCatalogo` (interfaz)
-* `Producto` (hoja)
-* `Categoria` (composición)
-
-Permite tratar productos individuales y categorías de forma uniforme.
-
-## Funcionalidades
-
-* Construcción de un catálogo de productos jerárquico
-* Cálculo del precio total de categorías
-* Procesamiento de pagos con diferentes pasarelas
-* Pruebas unitarias para validar funcionamiento
+---
 
 ## Autor
+
 Johan Carreño
